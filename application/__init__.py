@@ -7,3 +7,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
 
 from application import models
 from application import routes
+from application import routes
+
+app.static_folder = 'static'
