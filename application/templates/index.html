@@ -1,25 +1,4 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="static/img/favicon.png" type="image/png">
-        <title>Bizance Multi</title>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="static/css/bootstrap.css">
-        <link rel="stylesheet" href="static/vendors/linericon/style.css">
-        <link rel="stylesheet" href="static/css/font-awesome.min.css">
-        <link rel="stylesheet" href="static/vendors/owl-carousel/owl.carousel.min.css">
-        <link rel="stylesheet" href="static/vendors/lightbox/simpleLightbox.css">
-        <link rel="stylesheet" href="static/vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="static/vendors/animate-css/animate.css">
-        <!-- main css -->
-        <link rel="stylesheet" href="static/css/style.css">
-        <link rel="stylesheet" href="static/css/responsive.css">
-    </head>
-    <body>
-        
+
         <!--================Header Menu Area =================-->
         {% include 'includes/header.html' %}
     
@@ -27,45 +6,40 @@
         <!--================Feature Area =================-->
         <section class="feature_area p_120">
         	<div class="container">	
-        		<div class="main_title">
+        		
+					<div class="main_title">
         			<h2>Welcome to ABC Bank</h2>
         			<p>A Bank you can trust upon </p>
-        		</div>
-        		<div class="row feature_inner">
-        			<div class="col-lg-3 col-sm-6">
-        				<div class="feature_item">
-        					<h4>Unique Design</h4>
-        					<p>Most people who work in an office environment, buy computer products, or have a computer at </p>
-        				</div>
-        			</div>
-        			<div class="col-lg-3 col-sm-6">
-        				<div class="feature_item">
-        					<h4>Appropriate UX</h4>
-        					<p>Most people who work in an office environment, buy computer products, or have a computer at </p>
-        				</div>
-        			</div>
-        			<div class="col-lg-3 col-sm-6">
-        				<div class="feature_item">
-        					<h4>Perfect Visual</h4>
-        					<p>Most people who work in an office environment, buy computer products, or have a computer at </p>
-        				</div>
-        			</div>
-        			<div class="col-lg-3 col-sm-6">
-        				<div class="feature_item">
-        					<h4>Different Layout</h4>
-        					<p>Most people who work in an office environment, buy computer products, or have a computer at </p>
-        				</div>
-        			</div>
-        		</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+						  <div class="card">
+							<div class="card-body">
+							  <h4 class="card-title text-dark">Customer Executive Login</h4>
+							  <p class="card-text">To Create,Update and Delete Customers and Accounts.</p>
+							  <a href="{{url_for('executivelogin')}}" class="btn btn-primary">Executive Login</a>
+							</div>
+						  </div>
+						</div>
+						<div class="col-sm-6">
+						  <div class="card">
+							<div class="card-body">
+							  <h4 class="card-title text-dark">Cashier / Teller Login</h4>
+							  <p class="card-text">To initiate and update account transactions.</p>
+							  <a href="{{url_for('cashierlogin')}}" class="btn btn-primary">Cashier Login</a>
+							</div>
+						  </div>
+						</div>
+					  </div>
+				
+        			
+        			
         	</div>
-        </section>
-        <!--================End Feature Area =================-->
-        
-       
-        
+		</section>
+		
+
+
+        <!--================Footer Area =================-->
+ 
 		{%  include 'includes/footer.html'%}
         
-        
-     
-    </body>
-</html>
