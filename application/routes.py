@@ -10,10 +10,18 @@ from flask import Flask, render_template, redirect, url_for
 def index():
     return render_template('index.html')
 
-@app.route('/home/executivelogin')
+@app.route('/executivelogin')
 def executivelogin():
     return render_template('executivelogin.html')
 
-@app.route('/home/cashierlogin')
+@app.route('/cashierlogin')
 def cashierlogin():
     return render_template('cashierlogin.html')
+
+@app.route('/executivehome')
+def executivehome():
+    return render_template('executivehome.html')
+
+@app.route('/cashierhome')
+def executivecashier():
+    return render_template('cashierhome.html')
