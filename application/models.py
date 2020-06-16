@@ -1,13 +1,16 @@
 from application import app
 from flask_sqlalchemy import SQLAlchemy
-import os
+from flask_login import LoginManager, UserMixin, login_required, login_user
 import datetime
 
 
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-class Cashier(db.Model):
-    cid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+class Cashier(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(50), unique=True, index=True)
     password = db.Column(db.String(50))
 
@@ -19,8 +22,8 @@ class Cashier(db.Model):
         return '<Cashier %r>' % self.username
 
 
-class Executive(db.Model):
-    eid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Executive(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(50), unique=True, index=True)
     password = db.Column(db.String(50))
 
@@ -53,7 +56,6 @@ class Transaction(db.Model):
     tran_date = db.Column(db.DateTime, default=datetime.datetime.now)
     amount = db.Column(db.Integer)
     
-
     def __init__(self, cust_id, acc_number, source_acc_type, target_acc_type, amount):
         self.cust_id = cust_id
         self.acc_number = acc_number
@@ -61,13 +63,13 @@ class Transaction(db.Model):
         self.target_acc_type = target_acc_type
         self.amount = amount
 
+
 class Customer(db.Model):
     ssn = db.Column(db.Integer, primary_key=True)
     cust_id = db.Column(db.Integer, db.ForeignKey('transaction.cust_id'))
     name = db.Column(db.String())
     address = db.Column(db.String())
     age = db.Column(db.Integer)
-    
 
     def __init__(self, ssn, cust_id, name, address, age):
         self.ssn = ssn
@@ -75,6 +77,7 @@ class Customer(db.Model):
         self.name = name
         self.address = address
         self.age = age
+
 
 db.create_all()
         
