@@ -22,7 +22,7 @@ def executivehome():
     return render_template('executivehome.html')
 
 @app.route('/cashierhome')
-def executivecashier():
+def cashierhome():
     return render_template('cashierhome.html')
 
 @app.route('/cashierauth', methods=['GET', 'POST'])
