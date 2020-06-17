@@ -161,8 +161,7 @@ def getaccountdetails():
 
 @app.route('/showaccounts')
 def showaccounts():
-    acc = Accounts.query.all()
-    return render_template('showaccounts.html', value=acc)
+    return render_template('showaccounts.html', accounts=Accounts.query.all())
     
 
 @app.route('/accdetails', methods=['GET', 'POST'])

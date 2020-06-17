@@ -12,12 +12,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for row in acc %} 
+                  {% for acc in accounts %}
                     <tr>
-                        <td>{{row}}</td>
-                        
+                      <td>{{ acc.acc_number }}</td>
+                      <td>{{ acc.acc_type }}</td>
+                      <td>{{ acc.balance }}</td>
+                      <td>{{ acc.cust_id }}</td>
                     </tr>
-                {% endfor %}
+                  {% endfor %}
                 </tbody>
               </table>
             
