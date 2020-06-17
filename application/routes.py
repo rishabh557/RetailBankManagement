@@ -1,7 +1,7 @@
 from application import app
 from flask import render_template
 from .models import Cashier, Executive, Accounts, db, Transaction, Customer, login_manager, login_required, login_user, SQLAlchemy
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 
 
 @app.route('/home')
@@ -78,7 +78,7 @@ def createcustomer():
             flash('Please enter all the fields' , 'error')
         else:
             account = Accounts(request.form['acc_number'], request.form['acc_type'], request.form['balance'], request.form['cust_id'])
-            db.session.add(customer)
+            db.session.add(account)
             db.session.commit()
             flash('Record was successfully added')
             return render_template('executivehome.html')
