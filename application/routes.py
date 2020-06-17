@@ -73,6 +73,58 @@ def newcust():
             flash('Record was successfully added')
             return render_template('executivehome.html')
 
+@app.route('/updatecust1', methods = ['GET', 'POST'])
+def updatecust1():
+    if request.method == 'POST':
+        cust_id = request.form['custID']
+        ssn_id = request.form['ssnID']
+        if cust_id:
+            cust_id=int(cust_id)
+            is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
+            if is_valid_cust is not None:
+                details = Customer.query.get(cust_id)
+                return render_template('displaycustdetails.html', data = details)
+        elif ssn_id:
+            ssn_id=int(ssn_id)
+            is_valid_ssn = Customer.query.filter_by(ssn=ssn_id).first()
+            if is_valid_ssn is not None:
+                details = Customer.query.get(ssn_id)
+                return render_template('displaycustdetails.html', data = details)      
+        else:
+            flash("Please enter a valid Customer ID/SSN Number")
+
+    return render_template('updatecustomer.html')
+
+
+@app.route('/updatecust2', methods = ['GET', 'POST'])
+def updatecust2():
+    if request.method == 'POST':
+        cust_id = int(request.form['custID'])
+        is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
+        if is_valid_cust is not None:
+            details = Customer.query.get(cust_id)
+            details.name = request.form['name']
+            details.address = request.form['address'] 
+            details.age = request.form['age']
+            db.session.commit()
+            flash("Customer update initiated successfully")
+    
+    return render_template('updatecustomer.html')
+
+
+@app.route('/deletecust', methods =['GET', 'POST'])
+def deletecust():
+    if request.method == 'POST':
+        cust_id = int(request.form['custID'])
+        is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
+        if is_valid_cust is not None:
+            details = Customer.query.get(cust_id)
+            db.session.delete(details)
+            db.session.commit()
+            flash("Customer delete initiated successfully")
+    return render_template('deletecustomer.html')
+
+
 @app.route('/createaccount', methods=['GET','POST'])
 def createaccount():
         return render_template('createaccount.html')
@@ -89,6 +141,19 @@ def newacc():
             flash('Customer Record was successfully added')
             return render_template('executivehome.html')
 
+
+@app.route('/deleteacc', methods =['GET', 'POST'])
+def deleteacc():
+    if request.method == 'POST':
+        acc_number = int(request.form['acc_number'])
+        is_valid_acc = Customer.query.filter_by(acc_number=acc_number).first()
+        if is_valid_acc is not None:
+            details = Accounts.query.get(acc_number)
+            db.session.delete(details)
+            db.session.commit()
+            flash("Account delete initiated successfully")
+    
+    return render_template('deleteaccount.html')
 
 @app.route('/getaccountdetails', methods=['GET','POST'])
 def getaccountdetails():
