@@ -8,13 +8,13 @@
             
             <div class="container">
                 <div class="row" >
-                    <a href="#link" class="btn btn-info btn-lg col-lg-3" role="button">Add a New Customer</a> <hr>
+                    <a href="{{ url_for('createcustomer') }}" class="btn btn-info btn-lg col-lg-3" role="button">Add a New Customer</a> <hr>
                     <a href="#link" class="btn btn-info btn-lg col-lg-3" role="button">Update Customer Information</a> <hr>
                     <a href="#link" class="btn btn-info btn-lg col-lg-3" role="button">Delete Existing Customer</a>
                 </div>
                 <br> <br>
                 <div class="row" >
-                    <a href="#link" class="btn btn-info btn-lg col-lg-3" role="button">Create New Account</a> <hr>
+                    <a href="{{ url_for('createaccount') }}" class="btn btn-info btn-lg col-lg-3" role="button">Create New Account</a> <hr>
                     <a href="#link" class="btn btn-info btn-lg col-lg-3" role="button">Delete Existing Account</a> <hr>
                     <a href="#link" class="btn btn-info btn-lg col-md-3" role="button">View Customer Information</a> 
                 </div>
