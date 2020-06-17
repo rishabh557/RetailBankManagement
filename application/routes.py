@@ -165,7 +165,7 @@ def showaccounts():
     
 @app.route('/customerinfo',methods=['GET','POST'])
 def customerinfo():
-    if request.method == 'GET':
+    if request.method ==  'GET':
         ssn = request.form['ssn']
         if ssn:
             is_valid_acc = Customer.query.filter_by(ssn=ssn).first()

@@ -1,0 +1,47 @@
+{% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+          {% block body %}{% endblock %}
+      
+            <h2 class="text-dark">Widraw</h2>
+            <form action = "{{ url_for('withdraw')}}" method="POST">
+                <div class="form-group">
+                  <label for="ssn">Account Number</label>
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter Account Number" name="accID">
+                  <label for="ssn">Amount</label>
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter Amount to withdraw" name="amount">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <br><br>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Balance Before withdral</th>
+                    <th scope="col">Balance After withdrawl</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>{{cust.cust_id}}</td>
+                      <td>{{cust.name}}</td>
+                      <td>{{cust.address}}</td>
+                      <td>{{cust.age}}</td>
+                    </tr>
+                </tbody>
+              </table>
+            
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     
