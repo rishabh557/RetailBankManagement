@@ -72,7 +72,7 @@ def createcustomer():
 
 
 @app.route('/createaccount', methods = ['GET', 'POST'])
-def createcustomer():
+def createaccount():
     if request.method == 'POST':
         if not request.form['acc_number'] or not request.form['acc_type'] or not request.form['balance'] or not request.form['cust_id']:
             flash('Please enter all the fields' , 'error')
@@ -82,3 +82,33 @@ def createcustomer():
             db.session.commit()
             flash('Record was successfully added')
             return render_template('executivehome.html')
+
+
+@app.route('/getaccountdetails', methods=['GET','POST'])
+def getaccountdetails():
+    return render_template('getaccdetails.html')
+
+
+@app.route('/accdetails', methods=['GET', 'POST'])
+def accdetails():
+    cust_ssn_ID = int(request.form['custID'])
+    accID = request.form['accID']
+    if accID:
+        is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
+        if is_valid_acc is not None:
+            details = Accounts.query.get(accID)
+            return render_template('displayaccdetails.html', details=details)
+    elif cust_ssn_ID:
+        print("TESTED")
+        is_valid_ssn = Customer.query.filter_by(ssn=cust_ssn_ID).first()
+        is_valid_cust = Customer.query.filter_by(cust_id=cust_ssn_ID).first()
+        if is_valid_cust is not None:
+            details = Accounts.query.filter_by(cust_id=cust_ssn_ID)
+            return render_template('displayaccdetails.html', details=details)
+        elif is_valid_ssn is not None:
+            cust_details = Customer.query.get(cust_ssn_ID)
+            details = Accounts.query.filter_by(cust_id=cust_details.cust_id)
+            return render_template('displayaccdetails.html', details=details)
+    else:
+        flash("Please enter a valid Customer ID/Account Number")
+    return redirect(url_for('getaccountdetails'))
