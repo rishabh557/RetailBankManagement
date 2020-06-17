@@ -12,39 +12,40 @@
           {% endwith %}
           {% block body %}{% endblock %}
       
-            <h2 class="text-dark">Deposit</h2>
+            <h2 class="text-dark">Account Statement</h2>
             <form action = "{{ url_for('accountstatement')}}" method="POST">
                 <div class="form-group">
                   <label for="ssn">Account Number</label>
                   <input type="number" class="form-control" id="ssn" placeholder="Enter Account Number" name="accID">
-                  <label for="ssn">Start Date</label>
-                  <input type="date" class="form-control" id="ssn" placeholder="Enter Start Date" name="start_date">
-                  <label for="ssn">End Date</label>
-                  <input type="date" class="form-control" id="ssn" placeholder="Enter End Date" name="end_date">
                   <label for="ssn">Last N Statement</label>
                   <input type="number" class="form-control" id="ssn" placeholder="Enter Last N Statements" name="last_n">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <br><br>
+            {% if statement %}
+            {% for data in statement%}
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col">Customer ID</th>
-                    <th scope="col">Account Numbert</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Account Number</th>
                     <th scope="col">Source Account type</th>
                     <th scope="col">Target Account type</th>
-                    <th scope="col">Transaction Date</th>
                     <th scope="col">Amount</th>
                   </tr>
                 </thead>
                 <tbody>
                     <tr>
-                      <td>{{data.accID}}</td>
-                      <td>{{data.before_balance}}</td>
-                      <td>{{data.after_balance}}</td>
+                      <td>{{data.tran_date}}</td>
+                      <td>{{data.acc_no}}</td>
+                      <td>{{data.source}}</td>
+                      <td>{{data.target}}</td>
+                      <td>{{data.amount}}</td>
                     </tr>
                 </tbody>
               </table>
+              {% endfor %}
+              {% endif %}
             
     </div>
 </section>
