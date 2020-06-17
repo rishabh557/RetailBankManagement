@@ -187,20 +187,23 @@ def accdetails():
         is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
         if is_valid_acc is not None:
             details = Accounts.query.get(accID)
-            return render_template('displayaccdetails.html', details=details)
+            data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
+            return render_template('displayaccdetails.html', details=data)
     elif cust_ssn_ID:
         cust_ssn_ID = int(cust_ssn_ID)
-        print("TESTED")
         is_valid_ssn = Customer.query.filter_by(ssn=cust_ssn_ID).first()
         is_valid_cust = Customer.query.filter_by(cust_id=cust_ssn_ID).first()
-        print(is_valid_cust)
         if is_valid_cust is not None:
+            print("CUSTOMER ID")
             details = Accounts.query.filter_by(cust_id=cust_ssn_ID)
-            return render_template('displayaccdetails.html', details=details)
+            data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
+            return render_template('displayaccdetails.html', details=data)
         elif is_valid_ssn is not None:
+            print("SSN")
             cust_details = Customer.query.get(cust_ssn_ID)
             details = Accounts.query.filter_by(cust_id=cust_details.cust_id)
-            return render_template('displayaccdetails.html', details=details)
+            data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
+            return render_template('displayaccdetails.html', details=data)
     else:
         flash("Please enter a valid Customer ID/Account Number")
     return render_template('getaccdetails.html', error=True)
