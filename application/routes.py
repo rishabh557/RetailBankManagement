@@ -71,7 +71,6 @@ def createcustomer():
 
 
 
-@app.route('/createaccount', methods = ['GET', 'POST'])
 @app.route('/createaccount', methods=['GET', 'POST'])
 def createaccount():
     if request.method == 'POST':
