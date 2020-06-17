@@ -187,6 +187,7 @@ def accdetails():
         is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
         if is_valid_acc is not None:
             details = Accounts.query.get(accID)
+            #print(details)
             data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
             return render_template('displayaccdetails.html', details=data)
     elif cust_ssn_ID:
@@ -194,15 +195,16 @@ def accdetails():
         is_valid_ssn = Customer.query.filter_by(ssn=cust_ssn_ID).first()
         is_valid_cust = Customer.query.filter_by(cust_id=cust_ssn_ID).first()
         if is_valid_cust is not None:
-            print("CUSTOMER ID")
-            details = Accounts.query.filter_by(cust_id=cust_ssn_ID)
-            data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
+            #print("CUSTOMER ID")
+            details = Accounts.query.filter_by(cust_id=cust_ssn_ID).all()
+            #print(details[0])
+            data = {'acc_number' : details[0].acc_number, 'acc_type' : details[0].acc_type, 'balance' : details[0].balance, 'cust_id' : details[0].cust_id}
             return render_template('displayaccdetails.html', details=data)
         elif is_valid_ssn is not None:
-            print("SSN")
+            #print("SSN")
             cust_details = Customer.query.get(cust_ssn_ID)
-            details = Accounts.query.filter_by(cust_id=cust_details.cust_id)
-            data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
+            details = Accounts.query.filter_by(cust_id=cust_details.cust_id).all()
+            data = {'acc_number' : details[0].acc_number, 'acc_type' : details[0].acc_type, 'balance' : details[0].balance, 'cust_id' : details[0].cust_id}
             return render_template('displayaccdetails.html', details=data)
     else:
         flash("Please enter a valid Customer ID/Account Number")
