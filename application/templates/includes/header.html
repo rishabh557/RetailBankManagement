@@ -31,7 +31,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+                
+                {% if session['logged_in'] %}   
+                    <!-- Logged in -->
+                    <div class="nav navbar-right">
+                        <li class="nav-item dropdown">
+                          <a class="btn btn-outline-danger btn-md " href="{{url_for('logout')}}"  role="button" aria-haspopup="true">
+                            Logout
+                          </a>
+                        </li>  
+                    </div>      
+                {% else %}
+                <!-- Not Logged in -->
+                {% endif %}
             </div>
         </nav>
     </div>

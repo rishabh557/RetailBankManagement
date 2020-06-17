@@ -1,5 +1,5 @@
 from application import app
-from flask import render_template
+from flask import render_template , session
 from .models import Cashier, Executive, Accounts, db, Transaction, Customer, login_manager, login_required, login_user, SQLAlchemy
 from flask import Flask, flash, render_template, redirect, url_for, request
 
@@ -31,6 +31,7 @@ def cashierauth():
     user = Cashier.query.filter_by(username=username).first()
     if user:
         login_user(user)
+        session['logged_in'] = True
         return render_template('cashierhome.html')
     else:
         return "No records found"
@@ -41,11 +42,15 @@ def executiveauth():
     user = Executive.query.filter_by(username=username).first()
     if user:
         login_user(user)
+        session['logged_in'] = True
         return render_template('executivehome.html')
     else:
         return "No records found"
 
-
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return render_template('index.html')
 
 @login_manager.user_loader
 def load_executive(username):
