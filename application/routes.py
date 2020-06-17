@@ -36,7 +36,7 @@ def cashierauth():
     else:
         return "No records found"
 
-@app.route('/executiveauth', methods=['POST'])
+@app.route('/executiveauth', methods=[' POST'])
 def executiveauth():
     username = request.form['username']
     user = Executive.query.filter_by(username=username).first()
