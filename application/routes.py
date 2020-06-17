@@ -92,7 +92,7 @@ def getaccountdetails():
 @app.route('/accdetails', methods=['GET', 'POST'])
 def accdetails():
     cust_ssn_ID = int(request.form['custID'])
-    accID = request.form['accID']
+    accID = int(request.form['accID'])
     if accID:
         is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
         if is_valid_acc is not None:

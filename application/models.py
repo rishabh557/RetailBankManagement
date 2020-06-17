@@ -36,7 +36,7 @@ class Executive(UserMixin, db.Model):
 
 
 class Accounts(db.Model):
-    acc_number = db.Column(db.String(), primary_key=True)
+    acc_number = db.Column(db.Integer(), primary_key=True)
     acc_type = db.Column(db.String())
     balance = db.Column(db.Integer)
     cust_id = db.Column(db.Integer, db.ForeignKey('transaction.cust_id'))
@@ -50,7 +50,7 @@ class Accounts(db.Model):
 
 class Transaction(db.Model):
     cust_id = db.Column(db.Integer, primary_key=True)
-    acc_number = db.Column(db.String(), db.ForeignKey('accounts.acc_number'))
+    acc_number = db.Column(db.Integer(), db.ForeignKey('accounts.acc_number'))
     source_acc_type = db.Column(db.String())
     target_acc_type = db.Column(db.String())
     tran_date = db.Column(db.DateTime, default=datetime.datetime.now)
