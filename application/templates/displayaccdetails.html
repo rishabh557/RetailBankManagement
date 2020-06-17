@@ -1,0 +1,48 @@
+{% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+          {% block body %}{% endblock %}
+      
+            <h2 class="text-dark">Account Details</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">CustomerID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>{{details.acc_number}}</td>
+                      <td>{{details.acc_type}}</td>
+                      <td>{{details.balance}}</td>
+                      <td>{{details.cust_id}}</td>
+                    </tr>
+                </tbody>
+              </table>
+              <br><br>
+              <div class="container">
+                <div class="row">
+                  <a href="#link" class="btn btn-info btn-lg col-lg-2" role="button">Deposit</a> <hr>
+                  <a href="#link" class="btn btn-info btn-lg col-lg-2" role="button">Withdraw</a><hr>
+                  <a href="#link" class="btn btn-info btn-lg col-lg-2" role="button">Transfer</a> <hr>
+                  <a href="#link" class="btn btn-info btn-lg col-lg-2" role="button">Get Statement</a>
+                </div>
+              </div>
+            
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     

@@ -1,0 +1,46 @@
+{% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+          {% block body %}{% endblock %}
+      
+            <h2 class="text-dark">Customer Information</h2>
+            <form action = "{{ url_for('customerinfo')}}" method="GET">
+                <div class="form-group">
+                  <label for="ssn">Customer SSN</label>
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter SSN ID" name="ssn">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <br><br>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Customer Address</th>
+                    <th scope="col">Customer Age</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>{{cust.cust_id}}</td>
+                      <td>{{cust.name}}</td>
+                      <td>{{cust.address}}</td>
+                      <td>{{cust.age}}</td>
+                    </tr>
+                </tbody>
+              </table>
+            
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     

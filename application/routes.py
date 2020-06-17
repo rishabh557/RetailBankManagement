@@ -163,6 +163,20 @@ def getaccountdetails():
 def showaccounts():
     return render_template('showaccounts.html', accounts=Accounts.query.all())
     
+@app.route('/customerinfo',methods=['GET','POST'])
+def customerinfo():
+    if request.method == 'GET':
+        ssn = request.form['ssn']
+        if ssn:
+            is_valid_acc = Customer.query.filter_by(ssn=ssn).first()
+            if is_valid_acc is not None:
+                cust = Customer.query.get(ssn)   
+                return render_template('customerinfo.html' , cust=cust)
+            else:
+                flash("Please enter a valid Customer ID/Account Number")
+                return redirect(url_for('customerinfo'))
+    return render_template('executivehome.html', error=True)
+
 
 @app.route('/accdetails', methods=['GET', 'POST'])
 def accdetails():
