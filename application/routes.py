@@ -92,7 +92,7 @@ def newacc():
 
 @app.route('/getaccountdetails', methods=['GET','POST'])
 def getaccountdetails():
-    return render_template('getaccdetails.html')
+    return render_template('getaccdetails.html', error=False)
 
 @app.route('/showaccounts')
 def showaccounts():
@@ -102,17 +102,20 @@ def showaccounts():
 
 @app.route('/accdetails', methods=['GET', 'POST'])
 def accdetails():
-    cust_ssn_ID = int(request.form['custID'])
-    accID = int(request.form['accID'])
+    cust_ssn_ID = request.form['custID']
+    accID = request.form['accID']
     if accID:
+        accID = int(accID)
         is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
         if is_valid_acc is not None:
             details = Accounts.query.get(accID)
             return render_template('displayaccdetails.html', details=details)
     elif cust_ssn_ID:
+        cust_ssn_ID = int(cust_ssn_ID)
         print("TESTED")
         is_valid_ssn = Customer.query.filter_by(ssn=cust_ssn_ID).first()
         is_valid_cust = Customer.query.filter_by(cust_id=cust_ssn_ID).first()
+        print(is_valid_cust)
         if is_valid_cust is not None:
             details = Accounts.query.filter_by(cust_id=cust_ssn_ID)
             return render_template('displayaccdetails.html', details=details)
@@ -122,4 +125,129 @@ def accdetails():
             return render_template('displayaccdetails.html', details=details)
     else:
         flash("Please enter a valid Customer ID/Account Number")
-    return redirect(url_for('getaccountdetails'))
+    return render_template('getaccdetails.html', error=True)
+
+
+@app.route('/withdraw', methods=['GET', 'POST'])
+def withdraw():
+    if request.method == 'POST':
+        amt = int(request.form['amount'])
+        accID = request.form['accID']  #from displayaccdetails.html
+        if accID:
+            is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
+            if is_valid_acc is not None:
+                details = Accounts.query.get(accID)
+                before_balance = details.balance
+                if amt < before_balance:
+                    details.balance = int(details.balance) - int(amt)
+                    after_balance = details.balance
+                    db.session.commit()
+                    data = {'acc_no' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
+                    flash("Withdraw Successful")
+                    return render_template('withdraw.html', data=data)
+                else:
+                    flash("Please enter a valid amount")
+                    return redirect(url_for('withdraw'))
+    return render_template('withdraw.html')
+
+
+# @app.route('/withdraw-details', methods=['GET', 'POST'])
+# def withdraw_details():
+#     amt = int(request.form['amount'])
+#     accID = request.form['accID']  #from displayaccdetails.html
+#     if accID:
+#         is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
+#         if is_valid_acc is not None:
+#             details = Accounts.query.get(accID)
+#             before_balance = details.balance
+#             if amt < before_balance:
+#                 after_balance = int(details.balance) - int(amt)
+#                 details.balance = after_balance
+#                 db.session.commit()
+#                 data = {'acc_no' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
+#                 return render_template('withdraw.html', data=data)
+#             else:
+#                 flash("Please enter a valid amount")
+#     return redirect(url_for('withdraw_details'))
+
+
+
+@app.route('/transfer', methods=['GET', 'POST'])
+def transfer():
+    if request.method == 'POST':
+        amt = int(request.form['amount'])
+        source_acc = request.form['source_acc']
+        dest_acc = request.form['dest_acc']
+        if source_acc:
+            is_valid_acc = Accounts.query.filter_by(acc_number=source_acc).first()
+            if is_valid_acc is not None:
+                details_src = Accounts.query.get(source_acc)
+                before_balance_src = details_src.balance
+                details_dest = Accounts.query.get(dest_acc)
+                before_balance_dest = details_dest.balance
+                if amt < before_balance_src:
+                    details_src.balance = int(details_src.balance) - int(amt)
+                    after_balance_src =  details_src.balance
+                    details_dest.balance = int(details_dest.balance) + int(amt)
+                    after_balance_dest = details_dest.balance
+                    db.session.commit()
+                    data = {'src_acc_no' : source_acc,'dest_acc_no' : dest_acc, 'before_balance_src' : before_balance_src, 
+                    'after_balance_src' : after_balance_src, 'before_balance_dest' : before_balance_dest, 'after_balance_dest' : after_balance_dest}
+                    flash('Transfer Successful!')
+                    return render_template('transfer.html', data=data)
+                else:
+                    flash("Transfer Failed! Please enter a valid amount")
+                    return redirect(url_for('transfer'))
+    return render_template('transfer.html')
+
+
+@app.route('/deposit', methods=['GET', 'POST'])
+def deposit():
+    if request.method == 'POST':
+        amt = int(request.form['amount'])
+        accID = request.form['accID']
+        if accID:
+            is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
+            if is_valid_acc is not None:
+                details = Accounts.query.get(accID)
+                before_balance = details.balance
+                details.balance = int(details.balance) + int(amt)
+                after_balance = details.balance
+                db.session.commit()
+                data = {'acc_no' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
+                flash('Deposit Successful')
+                return render_template('deposit.html', data=data)
+            else:
+                flash("Please enter a valid Account Number")
+                return redirect(url_for('deposit'))
+    return render_template('deposit.html')
+
+
+@app.route('/accountstatement', methods=['GET', 'POST'])
+def accountstatement():
+    if request.method == 'POST':
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        accID = request.form['accID']
+        n = request.form['last_n']
+        if accID and start_date and end_date:
+            is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
+            if is_valid_acc is not None:
+                details = Transactions.query.filter_by(tran_date >= start_date , tran_date <= end_date).all()
+                return render_template('accountstatement.html', data=details)
+            else:
+                flash("Please enter a valid Account Number")
+                return redirect(url_for('accountstatement'))
+        elif accID and n:
+            is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
+            if is_valid_acc is not None:
+                details = Transactions.query.limit(n).all()
+                return render_template('accountstatement.html', data=details)
+            else:
+                flash("Please enter a valid Account Number")
+                return redirect(url_for('accountstatement'))
+        else:
+            flash("Please enter a valid details")
+            return redirect(url_for('accountstatement'))
+    return render_template('accountstatement.html')
+
