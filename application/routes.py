@@ -32,7 +32,7 @@ def cashierauth():
     if user:
         login_user(user)
         session['logged_in'] = True
-        return render_template('cashierhome.html')
+        return render_template('getaccdetails.html')
     else:
         return "No records found"
 
