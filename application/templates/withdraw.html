@@ -12,7 +12,7 @@
           {% endwith %}
           {% block body %}{% endblock %}
       
-            <h2 class="text-dark">Widraw</h2>
+            <h2 class="text-dark">Withdraw</h2>
             <form action = "{{ url_for('withdraw')}}" method="POST">
                 <div class="form-group">
                   <label for="ssn">Account Number</label>
@@ -22,6 +22,8 @@
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <br><br>
+
+            {% if data %}
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
@@ -38,6 +40,7 @@
                     </tr>
                 </tbody>
               </table>
+              {% endif %}
             
     </div>
 </section>

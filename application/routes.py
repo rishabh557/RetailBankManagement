@@ -223,13 +223,13 @@ def withdraw():
                     details.balance = int(details.balance) - int(amt)
                     after_balance = details.balance
                     db.session.commit()
-                    data = {'acc_no' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
+                    data = {'accID' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
                     flash("Withdraw Successful")
-                    return render_template('withdraw.html', data=data)
+                    return render_template('withdraw.html', data=data, flag=False)
                 else:
                     flash("Please enter a valid amount")
                     return redirect(url_for('withdraw'))
-    return render_template('withdraw.html')
+    return render_template('withdraw.html', data={}, flag=True )
 
 
 # @app.route('/withdraw-details', methods=['GET', 'POST'])
