@@ -1,0 +1,28 @@
+ <!--================Header Menu Area =================-->
+ {% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">	
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+
+            <h2 class="text-dark">Delete Customer</h2>
+            <form action= "{{url_for( 'deletecust' )}}" method="POST">
+                <div class="form-group">
+                  <label for="custID">Customer ID</label>
+                  <input type="text" class="form-control" id="cust_id" name="cust_id">
+                    <br>
+                <button type="submit" class="btn btn-primary">Delete</button>
+            </form>
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     
