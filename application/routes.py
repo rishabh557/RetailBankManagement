@@ -117,16 +117,22 @@ def updatecust2():
     return render_template('updatecustomer.html')
 
 
+@app.route('/deletecustomer', methods=['GET','POST'])
+def deletecustomer():
+    return render_template('deletecustomer.html')
+
 @app.route('/deletecust', methods =['GET', 'POST'])
 def deletecust():
     if request.method == 'POST':
-        cust_id = int(request.form['custID'])
+        cust_id = int(request.form['cust_id'])
         is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
         if is_valid_cust is not None:
-            details = Customer.query.get(cust_id)
-            db.session.delete(details)
+            Customer.query.filter_by(cust_id=cust_id).delete()
             db.session.commit()
-            flash("Customer delete initiated successfully")
+            flash('Customer deletion initiated successfully')
+        else:
+            flash('No record found')
+            
     return render_template('deletecustomer.html')
 
 
@@ -147,16 +153,21 @@ def newacc():
             return render_template('executivehome.html')
 
 
+@app.route('/deleteaccount', methods=['GET','POST'])
+def deleteaccount():
+    return render_template('deleteaccount.html')
+
 @app.route('/deleteacc', methods =['GET', 'POST'])
 def deleteacc():
     if request.method == 'POST':
         acc_number = int(request.form['acc_number'])
-        is_valid_acc = Customer.query.filter_by(acc_number=acc_number).first()
+        is_valid_acc = Accounts.query.filter_by(acc_number=acc_number).first()
         if is_valid_acc is not None:
-            details = Accounts.query.get(acc_number)
-            db.session.delete(details)
+            Accounts.query.filter_by(acc_number=acc_number).delete()
             db.session.commit()
-            flash("Account delete initiated successfully")
+            flash('Account deletion initiated successfully')
+        else:
+            flash('No record found')
     
     return render_template('deleteaccount.html')
 
@@ -192,25 +203,20 @@ def accdetails():
         is_valid_acc = Accounts.query.filter_by(acc_number=accID).first()
         if is_valid_acc is not None:
             details = Accounts.query.get(accID)
-            #print(details)
-            data = {'acc_number' : details.acc_number, 'acc_type' : details.acc_type, 'balance' : details.balance, 'cust_id' : details.cust_id}
-            return render_template('displayaccdetails.html', details=data)
+            return render_template('displayaccdetails.html', details=details)
     elif cust_ssn_ID:
         cust_ssn_ID = int(cust_ssn_ID)
+        print("TESTED")
         is_valid_ssn = Customer.query.filter_by(ssn=cust_ssn_ID).first()
         is_valid_cust = Customer.query.filter_by(cust_id=cust_ssn_ID).first()
+        print(is_valid_cust)
         if is_valid_cust is not None:
-            #print("CUSTOMER ID")
-            details = Accounts.query.filter_by(cust_id=cust_ssn_ID).all()
-            #print(details[0])
-            data = {'acc_number' : details[0].acc_number, 'acc_type' : details[0].acc_type, 'balance' : details[0].balance, 'cust_id' : details[0].cust_id}
-            return render_template('displayaccdetails.html', details=data)
+            details = Accounts.query.filter_by(cust_id=cust_ssn_ID)
+            return render_template('displayaccdetails.html', details=details)
         elif is_valid_ssn is not None:
-            #print("SSN")
             cust_details = Customer.query.get(cust_ssn_ID)
-            details = Accounts.query.filter_by(cust_id=cust_details.cust_id).all()
-            data = {'acc_number' : details[0].acc_number, 'acc_type' : details[0].acc_type, 'balance' : details[0].balance, 'cust_id' : details[0].cust_id}
-            return render_template('displayaccdetails.html', details=data)
+            details = Accounts.query.filter_by(cust_id=cust_details.cust_id)
+            return render_template('displayaccdetails.html', details=details)
     else:
         flash("Please enter a valid Customer ID/Account Number")
     return render_template('getaccdetails.html', error=True)
@@ -230,13 +236,13 @@ def withdraw():
                     details.balance = int(details.balance) - int(amt)
                     after_balance = details.balance
                     db.session.commit()
-                    data = {'accID' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
+                    data = {'acc_no' : accID, 'before_balance' :before_balance, 'after_balance' : after_balance}
                     flash("Withdraw Successful")
-                    return render_template('withdraw.html', data=data, flag=False)
+                    return render_template('withdraw.html', data=data)
                 else:
                     flash("Please enter a valid amount")
                     return redirect(url_for('withdraw'))
-    return render_template('withdraw.html', data={}, flag=True )
+    return render_template('withdraw.html')
 
 
 # @app.route('/withdraw-details', methods=['GET', 'POST'])
