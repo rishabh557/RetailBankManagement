@@ -1,0 +1,28 @@
+{% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">	
+            <h2 class="text-dark">Accounts Information</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Customer ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for row in acc %} 
+                    <tr>
+                        <td>{{row}}</td>
+                        
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     

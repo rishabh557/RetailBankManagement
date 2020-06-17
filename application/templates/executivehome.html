@@ -5,7 +5,6 @@
 
             <h2 class="text-dark">Customer Executive Home</h2>
             <br> <br>
-            
             <div class="container">
                 <div class="row" >
                     <a href="{{ url_for('createcustomer') }}" class="btn btn-info btn-lg col-lg-3" role="button">Add a New Customer</a> <hr>
@@ -20,7 +19,7 @@
                 </div>
                 <br> <br>
                 <div class="row justify-content-center" >
-                    <a href="#link" class="btn btn-info btn-lg col-lg-3" role="button">View Account Information</a> <hr>
+                    <a href="{{url_for('showaccounts')}}" class="btn btn-info btn-lg col-lg-3" role="button">View Account Information</a> <hr>
                     <a href="{{url_for('index')}}" class="btn btn-danger btn-lg col-lg-3" role="button">Logout</a>
                 </div>
             </div>        

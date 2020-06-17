@@ -75,7 +75,7 @@ def newcust():
 
 @app.route('/createaccount', methods=['GET','POST'])
 def createaccount():
-    return render_template('createaccount.html')
+        return render_template('createaccount.html')
 
 @app.route('/newacc', methods=['GET', 'POST'])
 def newacc():
@@ -86,7 +86,7 @@ def newacc():
             account = Accounts(request.form['acc_number'], request.form['acc_type'], request.form['balance'], request.form['cust_id'])
             db.session.add(account)
             db.session.commit()
-            flash('Record was successfully added')
+            flash('Customer Record was successfully added')
             return render_template('executivehome.html')
 
 
@@ -94,6 +94,11 @@ def newacc():
 def getaccountdetails():
     return render_template('getaccdetails.html')
 
+@app.route('/showaccounts')
+def showaccounts():
+    acc = Accounts.query.all()
+    return render_template('showaccounts.html', value=acc)
+    
 
 @app.route('/accdetails', methods=['GET', 'POST'])
 def accdetails():
