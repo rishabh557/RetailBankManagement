@@ -13,13 +13,14 @@
           {% block body %}{% endblock %}
       
             <h2 class="text-dark">Customer Information</h2>
-            <form action = "{{ url_for('customerinfo')}}" method="GET">
+            <form action = "{{ url_for('customerinfo')}}" method="POST">
                 <div class="form-group">
                   <label for="ssn">Customer SSN</label>
                   <input type="number" class="form-control" id="ssn" placeholder="Enter SSN ID" name="ssn">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <br><br>
+            {% if cust %}
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
@@ -38,6 +39,7 @@
                     </tr>
                 </tbody>
               </table>
+              {% endif %}
             
     </div>
 </section>
