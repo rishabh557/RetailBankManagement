@@ -70,7 +70,7 @@ def newcust():
             customer = Customer(request.form['ssn'], request.form['cust_id'], request.form['name'], request.form['address'], request.form['age'])
             db.session.add(customer)
             db.session.commit()
-            flash('Record was successfully added')
+            flash('Customer creation initiated successfully')
             return render_template('executivehome.html')
 
 @app.route('/updatecust1', methods = ['GET', 'POST'])
@@ -138,7 +138,7 @@ def newacc():
             account = Accounts(request.form['acc_number'], request.form['acc_type'], request.form['balance'], request.form['cust_id'])
             db.session.add(account)
             db.session.commit()
-            flash('Customer Record was successfully added')
+            flash('Account creation initiated successfully')
             return render_template('executivehome.html')
 
 
