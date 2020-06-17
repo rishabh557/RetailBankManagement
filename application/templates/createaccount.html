@@ -1,0 +1,31 @@
+ <!--================Header Menu Area =================-->
+ {% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">	
+
+            <h2 class="text-dark">Create Account</h2>
+            <form action= "{{url_for( 'newacc' )}}" method="POST">
+                <div class="form-group">
+                    <label for="custID">Account Number</label>
+                    <input type="text" class="form-control" id="acc_number" name="acc_number">
+                  </div>
+                <div class="form-group">
+                  <label for="custID">Account Type</label>
+                  <input type="text" class="form-control" id="acc_type" name="acc_type">
+                </div>
+                <div class="form-group">
+                  <label for="accID">Balance</label>
+                  <input type="text" class="form-control" id="balance" name="balance">
+                </div>
+                <div class="form-group">
+                    <label for="accID">Customer ID</label>
+                    <input type="text" class="form-control" id="cust_id" name="cust_id">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     

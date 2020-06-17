@@ -57,8 +57,12 @@ def load_cashier(username):
     return Cashier.query.get(username)
 
 
-@app.route('/createcustomer', methods =['GET', 'POST'])
+@app.route('/createcustomer', methods=['GET','POST'])
 def createcustomer():
+    return render_template('createcustomer.html')
+
+@app.route('/newcust', methods =['GET', 'POST'])
+def newcust():
     if request.method == 'POST':
         if not request.form['ssn'] or not request.form['cust_id'] or not request.form['name'] or not request.form['address'] or not request.form['age']:
             flash('Please enter all the fields', 'error')
@@ -69,10 +73,12 @@ def createcustomer():
             flash('Record was successfully added')
             return render_template('executivehome.html')
 
-
-
-@app.route('/createaccount', methods=['GET', 'POST'])
+@app.route('/createaccount', methods=['GET','POST'])
 def createaccount():
+    return render_template('createaccount.html')
+
+@app.route('/newacc', methods=['GET', 'POST'])
+def newacc():
     if request.method == 'POST':
         if not request.form['acc_number'] or not request.form['acc_type'] or not request.form['balance'] or not request.form['cust_id']:
             flash('Please enter all the fields', 'error')
