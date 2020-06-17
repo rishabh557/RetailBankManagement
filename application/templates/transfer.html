@@ -1,0 +1,54 @@
+{% include 'includes/header.html' %}
+ <section class="feature_area p_120">
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+          {% block body %}{% endblock %}
+      
+            <h2 class="text-dark">Transfer</h2>
+            <form action = "{{ url_for('deposit')}}" method="POST">
+                <div class="form-group">
+                  <label for="ssn">Source Account Number</label>
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter Account Number" name="source_acc">
+                  <label for="ssn">Destination Account Number</label>
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter Account Number" name="dest_acc">
+                  <label for="ssn">Amount</label>
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter Amount to deposit" name="amount">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <br><br>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Source Account Number</th>
+                    <th scope="col">Destination Account Number</th>
+                    <th scope="col">Source Acc Balance before</th>
+                    <th scope="col">Destination Acc Balance before</th>
+                    <th scope="col">Source Acc Balance after</th>
+                    <th scope="col">Destination Acc Balance after</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>{{data.src_acc_no}}</td>
+                      <td>{{data.dest_acc_no}}</td>
+                      <td>{{data.before_balance_src}}</td>
+                      <td>{{data.before_balance_dest}}</td> 
+                      <td>{{data.after_balance_src}}</td>
+                      <td>{{data.after_balance_dest}}</td> 
+                    </tr>
+                </tbody>
+              </table>
+            
+    </div>
+</section>
+ <!--================Footer Area =================-->
+ 
+  {%  include 'includes/footer.html'%}     

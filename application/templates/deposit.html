@@ -12,13 +12,13 @@
           {% endwith %}
           {% block body %}{% endblock %}
       
-            <h2 class="text-dark">Withdraw</h2>
-            <form action = "{{ url_for('withdraw')}}" method="POST">
+            <h2 class="text-dark">Deposit</h2>
+            <form action = "{{ url_for('deposit')}}" method="POST">
                 <div class="form-group">
                   <label for="ssn">Account Number</label>
                   <input type="number" class="form-control" id="ssn" placeholder="Enter Account Number" name="accID">
                   <label for="ssn">Amount</label>
-                  <input type="number" class="form-control" id="ssn" placeholder="Enter Amount to withdraw" name="amount">
+                  <input type="number" class="form-control" id="ssn" placeholder="Enter Amount to deposit" name="amount">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <br><br>
@@ -26,8 +26,8 @@
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">Account Number</th>
-                    <th scope="col">Balance Before withdrawl</th>
-                    <th scope="col">Balance After withdrawl</th>
+                    <th scope="col">Balance Before Deposit</th>
+                    <th scope="col">Balance After Deposit</th>
                   </tr>
                 </thead>
                 <tbody>
