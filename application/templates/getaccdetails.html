@@ -1,7 +1,9 @@
 {% include 'includes/header.html' %}
  <section class="feature_area p_120">
         <div class="container">	
-
+            {% if error %}
+             <p class=error><h1><strong>Error:</strong> Enter valid details! </h1>
+            {% endif %}
                 <h2 class="text-dark">Account Details</h2>
                 <form action= "{{url_for( 'accdetails' )}}" method="POST">
                     <div class="form-group">
