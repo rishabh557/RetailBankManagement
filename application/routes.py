@@ -78,6 +78,10 @@ def newcust():
             flash('Customer creation initiated successfully')
             return render_template('executivehome.html')
 
+@app.route('/updatecustomer')
+def updatecustomer():
+    return render_template('updatecustomer.html')
+
 @app.route('/updatecust1', methods = ['GET', 'POST'])
 def updatecust1():
     if request.method == 'POST':
@@ -88,13 +92,13 @@ def updatecust1():
             is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
             if is_valid_cust is not None:
                 details = Customer.query.get(cust_id)
-                return render_template('displaycustdetails.html', data = details)
+                return render_template('updatecustomer.html', data = details)
         elif ssn_id:
             ssn_id=int(ssn_id)
             is_valid_ssn = Customer.query.filter_by(ssn=ssn_id).first()
             if is_valid_ssn is not None:
                 details = Customer.query.get(ssn_id)
-                return render_template('displaycustdetails.html', data = details)      
+                return render_template('updatecustomer.html', data = details)      
         else:
             flash("Please enter a valid Customer ID/SSN Number")
 
