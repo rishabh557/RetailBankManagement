@@ -16,11 +16,11 @@
             <h2 class="text-dark">Update Customer Information</h2>
             <form action = "{{ url_for('updatecust1')}}" method="POST">
                 <div class="form-group">
-                  <label for="ssn">SSN :</label>
-                  <input type="number" class="form-control" id="ssn" placeholder="Enter SSN" name="ssnID">
+                  <label for="ssnID">SSN :</label>
+                  <input type="number" class="form-control" id="ssnID" placeholder="Enter SSN" name="ssnID">
                   <br>
                   <h4>--OR--</h4>
-                  <label for="ssn">Customer ID</label>
+                  <label for="custID">Customer ID</label>
                   <input type="number" class="form-control" id="custID" placeholder="Enter Customer ID" name="custID"><br>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
@@ -30,15 +30,15 @@
             <form action = "{{ url_for('updatecust2')}}" method="POST">
                 <div class="form-group">
                   <label for="ssn">SSN :</label>
-                  <input type="number" class="form-control" id="ssn" placeholder="{{data.ssn}}" name="ssID" contenteditable="false">
-                  <label for="ssn">Customer ID</label>
-                  <input type="number" class="form-control" id="custID" placeholder="{{data.cust_ID}}" name="custID" contenteditable="false">
-                  <label for="ssn">Customer Name</label>
-                  <input type="text" class="form-control" id="name" placeholder="{{data.name}}" name="name" contenteditable="true">
-                  <label for="ssn">Customer Address</label>
-                  <input type="text" class="form-control" id="address" placeholder="{{data.address}}" name="address" contenteditable="true">
-                  <label for="ssn">Customer Age</label>
-                  <input type="number" class="form-control" id="age" placeholder="{{data.age}}" name="age" contenteditable="true">
+                  <input type="number" class="form-control" id="ssn" value = "{{data.ssn}}" name="ssn" contenteditable="false">
+                  <label for="custID">Customer ID</label>
+                  <input type="number" class="form-control" id="custID" value = "{{data.cust_id}}" name="custID" contenteditable="false">
+                  <label for="name">Customer Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="{{data.name}}" value = "{{data.name}}" name="name" contenteditable="true">
+                  <label for="address">Customer Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="{{data.address}}" value = "{{data.address}}" name="address" contenteditable="true">
+                  <label for="age">Customer Age</label>
+                  <input type="number" class="form-control" id="age" placeholder="{{data.age}}" value = "{{data.age}}" name="age" contenteditable="true">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>      

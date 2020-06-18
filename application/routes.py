@@ -87,20 +87,25 @@ def updatecust1():
     if request.method == 'POST':
         cust_id = request.form['custID']
         ssn_id = request.form['ssnID']
+        
         if cust_id:
-            cust_id=int(cust_id)
+            # print(cust_id)
             is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
+            print(is_valid_cust.name)
             if is_valid_cust is not None:
-                details = Customer.query.get(cust_id)
+                # print(cust_id)
+                details = Customer.query.filter_by(cust_id=cust_id).first()
+                # print(details)
                 return render_template('updatecustomer.html', data = details)
+            else:
+                flash('Please enter valid customer id')
         elif ssn_id:
-            ssn_id=int(ssn_id)
             is_valid_ssn = Customer.query.filter_by(ssn=ssn_id).first()
             if is_valid_ssn is not None:
                 details = Customer.query.get(ssn_id)
-                return render_template('updatecustomer.html', data = details)      
-        else:
-            flash("Please enter a valid Customer ID/SSN Number")
+                return render_template('updatecustomer.html', data = details)   
+            else:
+                flash('Please enter valid ssn id')   
 
     return render_template('updatecustomer.html')
 
@@ -108,10 +113,12 @@ def updatecust1():
 @app.route('/updatecust2', methods = ['GET', 'POST'])
 def updatecust2():
     if request.method == 'POST':
-        cust_id = int(request.form['custID'])
+        cust_id = request.form['custID']
+        # print(cust_id)
         is_valid_cust = Customer.query.filter_by(cust_id=cust_id).first()
         if is_valid_cust is not None:
-            details = Customer.query.get(cust_id)
+            details = Customer.query.filter_by(cust_id=cust_id).first()
+            # print(details)
             details.name = request.form['name']
             details.address = request.form['address'] 
             details.age = request.form['age']
